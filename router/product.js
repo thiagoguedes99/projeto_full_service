@@ -1,0 +1,27 @@
+'use strict'
+
+const express = require('express');
+const multipart = require('connect-multiparty');
+
+// import controller
+const controller = require('../controller/product');
+
+
+// import middleware of auth
+const auth = require('../middlewares/authenticated').authenticated;
+
+
+// configurations
+const api = express.Router();
+const path_upload = multipart({ uploadDir: './upload/product' });
+
+// rotas
+api.get('/:page?/:qtd?', controller.findAll); //  auth,
+api.get('/:id', controller.findId);
+api.get('/image/:imageName', controller.getImage);
+api.post('/', path_upload, controller.save);
+api.put('/', controller.update);
+api.delete('/', controller.remove);
+
+
+module.exports = api;
