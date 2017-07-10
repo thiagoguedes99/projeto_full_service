@@ -3,16 +3,20 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const accessControl = require('./config/Access-Control');
+
 const app = express();
-
-// caregar arquivos as rotas
-const user = require('./router/user');
-const product = require('./router/product');
-
 
 // config. body parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+// config. Access-Control
+app.use(accessControl.access);
+
+
+// caregar arquivos as rotas
+const user = require('./router/user');
+const product = require('./router/product');
 
 
 // rotas

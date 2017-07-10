@@ -9,7 +9,7 @@ const bcrypt = require('bcrypt-nodejs');
 
 // my imports
 const userModel = require('../model/user');
-const jwt = require('../service/jwt');
+const jwt = require('../config/jwt');
 
 // export of functions
 module.exports = {
@@ -46,8 +46,6 @@ function login(req, res) {
                         res.status(500).send({ message: 'server error, find login user password' });
                     } else {
                         res.status(200).send({
-                            name: user.name,
-                            email: user.email,
                             image: user.image,
                             token: jwt.CreateToken(user)
                         });
@@ -81,10 +79,14 @@ function save(req, res) {
             user.level = null;
 
             // save image
-            let filePath = req.files.image.path;
-            let fileSplit = filePath.split('\\');
-            let fileName = fileSplit[2];
-            user.image = fileName;
+            /*if (req.files.image.path) {
+                let filePath = req.files.image.path;
+                let fileSplit = filePath.split('\\');
+                let fileName = fileSplit[2];
+                user.image = fileName;
+            } else {
+                //user.image = fileName;
+            }*/
 
             user.save((err, resp) => {
                 if (err) {
