@@ -8,8 +8,8 @@ const accessControl = require('./config/Access-Control');
 const app = express();
 
 // config. body parser
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 // config. Access-Control
 app.use(accessControl.access);
 

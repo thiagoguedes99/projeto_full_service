@@ -8,6 +8,7 @@ const moment = require('moment');
 const secret = 'chave_secreta_sistema_produtos';
 
 exports.authenticated = function(req, res, next) {
+
     if (!req.headers.authorization) {
         return res.status(403).send({ message: 'não autorizado' });
     }

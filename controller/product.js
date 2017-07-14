@@ -25,7 +25,8 @@ module.exports = {
 function findAll(req, res) {
     let page = Number(req.params.page) || 0;
     let qtdPages = Number(req.params.qtd) || 5;
-
+    console.log(page);
+    console.log(qtdPages);
     productModel.find().sort('name').paginate(page, qtdPages, (err, products, totalProduts) => {
         if (err) {
             console.log(err);
@@ -63,7 +64,7 @@ function findId(req, res) {
 
 function save(req, res) {
     let param = req.body;
-
+    console.log(param);
     if (param.name == null || param.price == null) {
         console.log(req);
         console.log(param.name);
@@ -78,10 +79,10 @@ function save(req, res) {
     product.price = param.price;
 
     // save image
-    let filePath = req.files.image.path.split('\\');
+    //let filePath = req.files.image.path.split('\\');
     //let fileSplit = filePath.split('\\');
-    let fileName = filePath[2];
-    product.image = fileName;
+    //let fileName = filePath[2];
+    //product.image = fileName;
 
     product.save((err, resp) => {
         if (err) {

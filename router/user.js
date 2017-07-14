@@ -17,7 +17,7 @@ const path_upload = multipart({ uploadDir: './upload/user' });
 
 // rotas
 api.get('/image/:imageName', controller.getImage);
-api.post('/', path_upload, controller.save);
+api.post('/', [path_upload, auth], controller.save);
 api.post('/login', controller.login);
 api.put('/', controller.update);
 api.delete('/', controller.remove);

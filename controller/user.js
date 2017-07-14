@@ -14,6 +14,7 @@ const jwt = require('../config/jwt');
 // export of functions
 module.exports = {
     findAll,
+    findId,
     login,
     save,
     update,
@@ -23,6 +24,10 @@ module.exports = {
 
 function findAll(req, res) {
     res.status(200).send('ok');
+}
+
+function findId(req, res) {
+
 }
 
 function login(req, res) {
@@ -41,14 +46,16 @@ function login(req, res) {
             } else {
                 bcrypt.compare(param.password, user.password, (err, check) => {
                     if (err) {
-                        console.log(err);
-
                         res.status(500).send({ message: 'server error, find login user password' });
                     } else {
-                        res.status(200).send({
-                            image: user.image,
-                            token: jwt.CreateToken(user)
-                        });
+                        if (check) {
+                            res.status(200).send({
+                                image: user.image,
+                                token: jwt.CreateToken(user)
+                            });
+                        } else {
+                            return res.status(400).send({ message: 'Usuário ou Senha incorretos' });
+                        }
                     }
                 });
             }
